@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public class PaybackController {
 
     @Autowired
@@ -27,14 +27,14 @@ public class PaybackController {
     }
 
     //get all coupons
-    @GetMapping("/getCoupons/{id}")
+    @GetMapping("/v1/GetMemberCoupons/{id}")
     public ResponseEntity<MemberData> getCouponsById(@PathVariable(value = "id") long id) throws Exception {
         MemberData md = memrepo.findById(id).orElseThrow(() -> new Exception("Transaction unavailable"));
 
         return ResponseEntity.ok().body(md);
     }
 
-    @GetMapping("/getValid/{id}")
+    @GetMapping("/v2/GetMemberCoupons/{id}")
     public ResponseEntity<MemberData> getValidById(@PathVariable(value = "id") long id) throws Exception {
         MemberData md = memrepo.findById(id).orElseThrow(() -> new Exception("Transaction unavailable"));
         Set<CouponData> coupons = md.getCoupons();
@@ -53,7 +53,7 @@ public class PaybackController {
     }
 
 
-    @GetMapping("/getAllbyCity")
+    @GetMapping("/v3/GetMemberCoupons")
     public ResponseEntity<MemberData> getAllByNearestCity(@RequestBody MemberRequest Data) throws Exception {
         MemberData md = memrepo.findById(Data.getMemberid()).orElseThrow(() -> new Exception("User Not found"));
 
